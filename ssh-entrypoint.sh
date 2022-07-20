@@ -2,7 +2,7 @@
 # Forward SSH agent socket to a well-known location
 set -eo pipefail
 
-FORWARDED_SOCKET=/ssh-agent/ssh-agent.sock
+FORWARDED_SOCKET=/sock-puppet/ssh-agent.sock
 
 [ -z "$SSH_AUTH_SOCK" ] && exit 1
 
