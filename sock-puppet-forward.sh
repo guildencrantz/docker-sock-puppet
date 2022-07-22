@@ -21,7 +21,7 @@ docker rm -f "${CONTAINER_NAME}" >/dev/null 2>&1 || true
 
 docker volume create --name "${VOLUME_NAME}"
 
-MOUNT_FLAGS="=-v ${VOLUME_NAME}:/${VOLUME_NAME} -e SSH_AUTH_SOCK=/${VOLUME_NAME}/ssh-agent.sock -e GNUPGHOME=/${VOLUME_NAME}"
+MOUNT_FLAGS="-v ${VOLUME_NAME}:/${VOLUME_NAME} -e SSH_AUTH_SOCK=/${VOLUME_NAME}/ssh-agent.sock -e GNUPGHOME=/${VOLUME_NAME}"
 
 docker run                                \
   --name "${CONTAINER_NAME}"              \

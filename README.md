@@ -1,4 +1,4 @@
-Forward unix sockets into a container
+Forward unix sockets into containers.
 
 Based on (forked from)
 [docker-ssh-agent-forward](https://github.com/uber-common/docker-ssh-agent-forward).
@@ -59,6 +59,6 @@ hub image should be the common case.
 
 * Matt Henkel
 * Justin Cormack
-* https://github.com/uber-common/docker-ssh-agent-forward/graphs/contributors
+* https://github.com/guildencrantz/docker-sock-puppet/graphs/contributors
 
 [License](LICENSE.md) is ISC.
