@@ -7,7 +7,7 @@
 
 set -eo pipefail
 
-IMAGE_NAME=guildencrantz/sock-puppet:latest
+IMAGE_NAME=ghcr.io/guildencrantz/sock-puppet:latest
 CONTAINER_NAME=sock-puppet
 VOLUME_NAME=sock-puppet
 
@@ -21,14 +21,16 @@ docker rm -f "${CONTAINER_NAME}" >/dev/null 2>&1 || true
 
 docker volume create --name "${VOLUME_NAME}"
 
-#> TODO: Restart?
+MOUNT_FLAGS="=-v ${VOLUME_NAME}:/${VOLUME_NAME} -e SSH_AUTH_SOCK=/${VOLUME_NAME}/ssh-agent.sock -e GNUPGHOME=/${VOLUME_NAME}"
+
 docker run                                \
   --name "${CONTAINER_NAME}"              \
   -d                                      \
+  --restart=always                        \
   -e AUTHORIZED_KEYS="${AUTHORIZED_KEYS}" \
   -v ${VOLUME_NAME}:/sock-puppet          \
-  -p 22                    \
-  -l "MOUNT_FLAGS=-v ${VOLUME_NAME}:/${VOLUME_NAME} -e SSH_AUTH_SOCK=/${VOLUME_NAME}/ssh-agent.sock -e GNUPGHOME=/${VOLUME_NAME}" \
+  -p 22                                   \
+  -l "MOUNT_FLAGS=${MOUNT_FLAGS}"         \
   "${IMAGE_NAME}" >/dev/null
 
 HOST_PORT=$(docker inspect -f '{{ (index (index .NetworkSettings.Ports "22/tcp") 0).HostPort }}' $CONTAINER_NAME)

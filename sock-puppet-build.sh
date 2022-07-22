@@ -1,2 +1,2 @@
 #!/bin/sh
-exec docker build -t guildencrantz/sock-puppet:latest .
+exec docker build -t ghcr.io/guildencrantz/sock-puppet:latest .
